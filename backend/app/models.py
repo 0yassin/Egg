@@ -4,16 +4,16 @@ from sqlalchemy import DateTime, ForeignKey, Integer, String, Text
 
 from sqlalchemy.orm import  Mapped, mapped_column, relationship
 
-from database import Base
+from app.database import Base
 class User(Base):
     __tablename__= "users"
     
     id:Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    name:Mapped[str |None] = mapped_column(String(67), unique=True, nullable=False)
+    name:Mapped[str] = mapped_column(String(67), unique=False, nullable=False)
     username:Mapped[str]= mapped_column(String(67), unique=True, nullable=False)
-    bio:Mapped[str]=mapped_column(String(267), nullable=True)
+    bio:Mapped[str|None]=mapped_column(String(267), nullable=True)
     email:Mapped[str]=mapped_column(String(67), unique=True, nullable=False)
-    password:Mapped[str |None]=mapped_column(String(250), nullable=False)
+    password:Mapped[str ]=mapped_column(String(250), nullable=False)
     
     #for many eggs
     eggs:Mapped[list[Egg]] = relationship(back_populates="owner", cascade="all, delete-orphan")
