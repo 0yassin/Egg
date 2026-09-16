@@ -2,6 +2,10 @@ from fastapi import FastAPI , HTTPException , status , Request
 from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
 from schemas import PostCreate, postResponse
+from app.database import Base, engine
+import app.models
+
+Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
     
