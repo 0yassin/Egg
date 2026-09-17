@@ -4,11 +4,18 @@ from sqlalchemy.orm import Session
 from app.database import Base, engine, get_db
 import app.models as models
 import app.schemas as schemas
-
+from fastapi.middleware.cors import CORSMiddleware
+from app.auth import hash_password
 
 
 Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Memory EGG API")
+
+origins =["http://localhost:5173", # vite react default port
+          "http:/127.0.0.1:5173"]
+
+app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+
 
 
 # adding user endpoint 
@@ -23,7 +30,7 @@ def create_user(user: schemas.UserCreate, db:Session=Depends(get_db)):
         name=user.name,
         username=user.username,
         email=user.email,
-        password=user.password
+        password=hash_password(user.password),
     )
     db.add(new_user)
     db.commit()

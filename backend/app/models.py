@@ -9,11 +9,10 @@ class User(Base):
     __tablename__= "users"
     
     id:Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    name:Mapped[str | None] = mapped_column(String(67), unique=False, nullable=True)
+    name:Mapped[str] = mapped_column(String(67), unique=False, nullable=True)
     username:Mapped[str]= mapped_column(String(67), unique=True, nullable=False)
-    bio:Mapped[str|None]=mapped_column(String(267), nullable=True)
     email:Mapped[str]=mapped_column(String(67), unique=True, nullable=False)
-    password:Mapped[str ]=mapped_column(String(250), nullable=False)
+    password:Mapped[str ]=mapped_column(String(200), nullable=False)
     
     #for many eggs
     eggs:Mapped[list[Egg]] = relationship(back_populates="owner", cascade="all, delete-orphan")
