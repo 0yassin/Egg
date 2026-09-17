@@ -1,6 +1,8 @@
+import { useState } from "react";
 import CreateEggCard from "../components/CreateEggCard";
 import Eggcard from "../components/Eggcard";
 import type { EggCardProps } from "../components/Eggcard";
+import CreateEggPopup from "../components/CreateEggPopup";
 
 const cardsData: EggCardProps[] = [
     { title: "birthday", description: "my 15th birthday", unlockDate: "unlocks in 2 days" , isLocked:true},
@@ -9,14 +11,26 @@ const cardsData: EggCardProps[] = [
     { title: "Graduation day", description: "the day I graduated highschool", unlockDate: "unlocks in 10 days" , isLocked:true},
 ]
 export function Farm(){
+    const [modalvisible, Setmodalvisible] = useState(true)
+    const [modaltitle, SetmodalTitle] = useState("")
+    const [modaldescription, Setmodaldescription] = useState("")
+    const [modalunlockdate, Setmodalunlockdate] =  useState("")
+    const [modalmedia, Setmodalmedia] = useState([])
     return(
-        <main className="max-w-6xl mx-auto px-6 py-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {cardsData.map((card, index)=>(
-                    <Eggcard unlockDate={card.unlockDate} title={card.title} description={card.description} isLocked={card.isLocked} onClick={()=>{}} />
-                ))}
-                <CreateEggCard />
-            </div>
-        </main>
+        <>
+            <main className="max-w-6xl mx-auto px-6 py-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {cardsData.map((card, index)=>(
+                        <Eggcard unlockDate={card.unlockDate} title={card.title} description={card.description} isLocked={card.isLocked} onClick={()=>{}} />
+                    ))}
+                    <CreateEggCard />
+                </div>
+            </main>
+            {/* creating egg modal  */}
+            {modalvisible && 
+                <CreateEggPopup/>
+            }
+        </>
+        
     )
 }
