@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field , EmailStr
 from datetime import datetime
 
 
@@ -6,7 +6,7 @@ from datetime import datetime
 class UserCreate(BaseModel):
     name: str | None= None
     username:str = Field(min_length=3, max_length=50)
-    email:emailStr
+    email:EmailStr
     password: str=Field(min_length=6)
     
 class UserResponse(BaseModel):
@@ -14,7 +14,7 @@ class UserResponse(BaseModel):
     id: int
     name:str |None
     username: str
-    email:emailStr
+    email:EmailStr
     bio: str|None
     
 # egg schemas
@@ -29,7 +29,7 @@ class EggResponse(BaseModel):
     
     id:int
     title:str
-    user:int
+    user_int:int
     open_date:datetime
     is_sealed: bool
 
