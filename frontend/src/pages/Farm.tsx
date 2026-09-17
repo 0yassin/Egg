@@ -1,7 +1,7 @@
-export function Home(){
+export function Farm(){
     return(
         <main>
-            main
+            Farm
         </main>
     )
 }

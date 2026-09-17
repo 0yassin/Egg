@@ -1,9 +1,17 @@
+import { NavBar } from "./components/NavBar";
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./pages/home";
+import { Account } from "./pages/Account";
+import { Farm } from "./pages/Farm";
 function App() {
   return (
     <>
-      <main className="min-h-screen bg-black flex items-center justify-center">
-        <h1 className="text-5xl font-bold text-white">Egggggggggg</h1>
-      </main>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/farm" element={<Farm />} />
+        <Route path="/account" element={<Account />} />
+      </Routes>
     </>
   );
 }

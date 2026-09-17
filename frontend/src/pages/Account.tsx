@@ -1,7 +1,7 @@
-export function Home(){
+export function Account(){
     return(
         <main>
-            main
+            Account
         </main>
     )
 }
