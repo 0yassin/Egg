@@ -1,4 +1,5 @@
 fastapi
 sqlalchemy
 uvicorn
-pymysql
+asyncpg
+Pydantic
