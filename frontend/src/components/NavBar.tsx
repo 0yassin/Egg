@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import type { NavLinkRenderProps } from "react-router-dom";
 
-const getNavLinkClass = ({ isActive }: NavLinkRenderProps): string => (isActive ? "font-semibold text-[var(--hightlight-text-color)]" : "text-[var(--text-color)] before:content-[''] before:block before-W-1 before:bg-black");
+const getNavLinkClass = ({ isActive }: NavLinkRenderProps): string => (` " relative before:absolute  before:content-[''] before:block before-W-1 before:bg-black "   ${isActive} ? "font-semibold text-[var(--hightlight-text-color)]" : "text-[var(--text-color)]"`);
 
 export function NavBar() {
   return (
