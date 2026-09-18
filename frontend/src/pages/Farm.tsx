@@ -12,7 +12,7 @@ const cardsData: EggCardProps[] = [
 ];
 
 export function Farm() {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalDescription, setModalDescription] = useState("");
   const [modalUnlockDate, setModalUnlockDate] = useState("");
