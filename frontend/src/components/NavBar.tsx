@@ -5,7 +5,7 @@ const getNavLinkClass = ({ isActive }: NavLinkRenderProps): string => (` " relat
 
 export function NavBar() {
   return (
-    <nav className="flex items-center justify-between border-b border-[var(--border-color)] px-10 py-4 bg-[var(--bg-color)]">
+    <nav className="font-poppins flex items-center justify-between border-b border-(--border-color) px-10 py-4 bg-(--bg-color)">
       <span className="font-semibold text-2xl tracking-tight upper">Egg</span>
       <div className="flex items-center gap-20 ">
         <NavLink to="/" className={getNavLinkClass}>
