@@ -8,8 +8,8 @@ export function Account(){
     function resetpassword(){}
 
     return(
-        <main className="p-4 font-poppins flex justify-center">
-            <div className="w-full max-w-2xl py-6 px-9 border border-(--light-brown) rounded-xl">
+        <main className="pt-12 px-4 font-poppins flex justify-center min-h-screen">
+            <div className="w-full h-fit max-w-md py-6 px-9 border border-(--light-brown) rounded-xl">
                 <div className="flex gap-6 content-center items-center mb-4">
                     <span className="text-[25px] text-(--dark-brown) font-medium">username</span>
                     <img className="h-6 cursor-pointer" src={editicon} onClick={(e)=>{e.preventDefault(); editdisplayname()}} />
