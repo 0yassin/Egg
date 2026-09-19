@@ -37,7 +37,7 @@ export function NavBar() {
       <div className="md:hidden flex items-center">
         <button
           onClick={toggleMenu}
-          className="text-(--text-color) focus:outline-none p-2"
+          className="text-(--text-color) focus:outline-none p-2 cursor-pointer"
           aria-label="Toggle menu"
         >
           {isMenuOpen ? (
