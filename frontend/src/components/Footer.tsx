@@ -1,9 +1,9 @@
 export default function Footer(){
     return(
-        <div className=" px-32 py-12 bg-(--light-brown) font-poppins ">
+        <div className=" lg:px-32 px-8 py-12 bg-(--light-brown) font-poppins ">
             <div className="h-full w-full flex justify-between">
                 {/* links */}
-                <div className="text-[22px] font-medium  flex gap-12 ">
+                <div className="text-[22px] font-medium  flex-col flex md:flex-row gap-6 md:gap-12  ">
                     <div className="flex flex-col gap-3">
                         <a className= "text-(--bg-color)/75 hover:text-(--bg-color) transition-colors" href="/">home</a>
                         <a className= "text-(--bg-color)/75 hover:text-(--bg-color) transition-colors" href="/farm">farm</a>
@@ -17,7 +17,7 @@ export default function Footer(){
                         </a>
                         <a
                             href="/login"
-                            className="text-(--bg-color)/75 hover:text-(--bg-color) w-full text-lefts py-2 text-center rounded-lg transition-colors cursor-pointer active:scale-95">
+                            className="text-(--bg-color)/75 hover:text-(--bg-color) w-full text-left py-2 md:text-center rounded-lg transition-colors cursor-pointer active:scale-95">
                             login
                         </a>
 
