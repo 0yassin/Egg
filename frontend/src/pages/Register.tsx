@@ -1,4 +1,6 @@
 import { useState } from "react"
+import eyeicon from "../assets/eyeicon.svg"
+import eyeslashicon from "../assets/eyeslashicon.svg"
 
 export function Register(){
 
@@ -7,7 +9,28 @@ export function Register(){
     const [displayname, setdisplayname] = useState("")
     const [email, setemail] = useState("")
 
-    function Register(){}
+    const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
+
+    async function handleRegister(){
+        setError("");
+        if (!username.trim() || !password.trim() || !displayname.trim() || !email.trim()) {
+            setError("Please fill in all fields.");
+            return;
+        }
+        setIsLoading(true)
+        try {
+            await new Promise((resolve) => setTimeout(resolve, 1500));
+            // TODO: link to actual backend
+            // window.location.href = "/login";
+        }
+        catch (e) {
+            setError("Please make sure your details are valid")
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     return(
         <main className="font-poppins min-h-screen min-w-screen justify-center flex p-4 pt-8">
@@ -15,6 +38,11 @@ export function Register(){
                 <h2 className="text-[25px] font-semibold text-(--dark-brown)">
                     Create your account
                 </h2>
+                {error && (
+                    <div className="w-full p-3 bg-red-100 text-red-600 border border-red-300 rounded-lg text-[15px]">
+                        {error}
+                    </div>
+                )}
                     <input
                         type="email"
                         placeholder="email"
@@ -37,20 +65,34 @@ export function Register(){
                         onChange={(e) => setusername(e.target.value)}
                         className="w-full text-[17.5px] px-4 py-3 text-(--dark-brown) bg-(--bg-color) rounded-lg border border-(--light-brown)/80 focus:border-(--dark-brown) transition-all outline-none"
                     />
-                    <input
-                        type="password"
-                        placeholder="password"
-                        value={password}
-                        onChange={(e) => setpassword(e.target.value)}
-                        className="w-full text-[17.5px] px-4 py-3 text-(--dark-brown) bg-(--bg-color) rounded-lg border border-(--light-brown)/80 focus:border-(--dark-brown) transition-all outline-none"
-                    />
+                    <div className="flex gap-2 items-center">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="password"
+                            value={password}
+                            onChange={(e) => setpassword(e.target.value)}
+                            className="w-full text-[17.5px] px-4 py-3 text-(--dark-brown) bg-(--bg-color) rounded-lg border border-(--light-brown)/80 focus:border-(--dark-brown) transition-all outline-none"
+                        />
+                        <button className="cursor-pointer p-1 transition-all flex items-center justify-center" onClick={(e)=>{e.preventDefault(); showPassword==true?setShowPassword(false) : setShowPassword(true)}}>
+                            {showPassword? 
+                                <img className="h-8" src={eyeicon} />
+                                :
+                                <img className="h-8" src={eyeslashicon} />
+                            }
+                        </button>
+                    </div>
                     <div className="flex justify-center items-center gap-3 w-full text-(--bg-color)">
                         <button
+                            disabled={isLoading}
                             type="button"
-                            onClick={()=>Register()}
-                            className="w-full text-[20px] font-medium bg-(--accent-blue) py-3 rounded-lg transition-all cursor-pointer active:scale-95"
+                            onClick={()=>handleRegister()}
+                            className="w-full h-full disabled:opacity-70 disabled:cursor-not-allowed disabled:active:scale-100 text-[20px] font-medium bg-(--accent-blue) py-3 rounded-lg transition-all cursor-pointer active:scale-95"
                         >
-                            Register
+                            {isLoading? 
+                                <img src={eyeicon} className="animate-spin h-7 mx-auto" />
+                                :
+                                <span>Register</span>
+                            }
                         </button>
                         <a
                             type="button"
@@ -59,7 +101,7 @@ export function Register(){
                         >
                             Login
                         </a>
-                        </div>
+                    </div>
             </div>
         </main>
     )
