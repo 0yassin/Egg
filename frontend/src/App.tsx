@@ -1,6 +1,6 @@
 import { NavBar } from "./components/NavBar";
 import { Route, Routes } from "react-router-dom";
-import { Home } from "./pages/home";
+import { Home } from "./pages/Home";
 import { Account } from "./pages/Account";
 import { Farm } from "./pages/Farm";
 import Footer from "./components/Footer";
