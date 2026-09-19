@@ -1,6 +1,6 @@
 export default function Footer(){
     return(
-        <div className="w-screen px-32 py-12 bg-(--light-brown) font-poppins">
+        <div className=" px-32 py-12 bg-(--light-brown) font-poppins ">
             <div className="h-full w-full flex justify-between">
                 {/* links */}
                 <div className="text-[22px] font-medium  flex gap-12 ">
