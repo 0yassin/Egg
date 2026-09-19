@@ -66,7 +66,7 @@ export function Farm() {
       setModalVisible(false);
     } catch (e) {
       console.error("error creating egg", e)
-      seterror(e)
+      seterror(e.message || "Something went wrong while creating the egg.");
     } finally {
       setmodalIsLoading(false)
     }
