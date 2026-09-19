@@ -1,6 +1,6 @@
 import { EggPlaceHolder } from "../components/EggPlaceHolder";
 import Button from "../components/botton";
-
+import { StepCard } from "../components/StepCard";
 export function Home() {
   return (
     <main className="min-h-screen px-6 pt-16 pb-28 md:px-12">
@@ -26,8 +26,23 @@ export function Home() {
           </div>
         </div>
       </section>
-      <section className="">
-        adwad
+      <section className="px-6 py-24 text-(--accent-color) md:px-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-md font-semibold uppercase tracking-[0.2em] text-(--accent-blue)">How egg works</p>
+            <h2 className="mt-3 font-serif text-3xl font-bold leading-tight md:text-5xl">
+              PLant a memory
+              <br />
+              let time do the rest
+            </h2>
+            <p className="mt-5 leading-tight">Some memory are meant to be for future experienced . Egg gives them a place to wait </p>
+          </div>
+          <div className="mt-16 grid gap-10 md:grid-cols-3">
+           <StepCard step="1" title="Plant a memory" description="Write a message, add your favorite photos, or save a moment you want to remember later"/>
+           <StepCard step="2" title="Seal your egg" description="Choose when you want your memory to return. Once planted, your Egg stays sealed."/>
+           <StepCard step="3" title="Rediscover it" description="When the time comes, your Egg opens and your memory returns to you."/>
+          </div>
+        </div>
       </section>
     </main>
   );
