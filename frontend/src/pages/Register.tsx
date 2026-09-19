@@ -12,14 +12,38 @@ export function Register(){
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
-
+    const isValidUsername = (str: string) => /^[a-zA-Z0-9_-]{3,20}$/.test(str);
+    const sanitizeInput = (str: string) => str.normalize("NFKC").trim();
+    const isValidDisplayName = (str: string) => /^[\p{L}\p{N}\s'-]{2,30}$/u.test(str);
+    
     async function handleRegister(){
         setError("");
-        if (!username.trim() || !password.trim() || !displayname.trim() || !email.trim()) {
+        const cleanEmail = sanitizeInput(email);
+        const cleanDisplayName = sanitizeInput(displayname);
+        const cleanUsername = sanitizeInput(username);
+        const cleanPassword = password.trim();
+        if (!cleanEmail || !cleanDisplayName || !cleanUsername || !cleanPassword) {
             setError("Please fill in all fields.");
             return;
         }
+        if (!isValidUsername(cleanUsername)) {
+            setError("Username can only contain letters, numbers, _, and - (3-20 chars).");
+            return;
+        }
+        if (!isValidDisplayName(cleanDisplayName)) {
+            setError("Display name contains invalid characters or symbols.");
+            return;
+        }
+        if (!cleanEmail.includes("@") || !cleanEmail.includes(".")) {
+            setError("Please enter a valid email address.");
+            return;
+        }
+        if (cleanPassword.length < 6) {
+            setError("Password must be at least 6 characters long.");
+            return;
+        }
         setIsLoading(true)
+
         try {
             await new Promise((resolve) => setTimeout(resolve, 1500));
             // TODO: link to actual backend
