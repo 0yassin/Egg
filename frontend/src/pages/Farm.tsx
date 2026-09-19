@@ -69,7 +69,6 @@ export function Farm() {
       seterror(e)
     } finally {
       setmodalIsLoading(false)
-
     }
   }
 
