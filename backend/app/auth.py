@@ -8,14 +8,14 @@ from app.database import get_db
 import app.models as models
 import app.schemas as schemas
 
-SECRET_KEY= "" # environment variable
+SECRET_KEY= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIn0.I9HHw_SGAKmS2oKtCpBfpwRvcs06_78R1VPuoZ0ol2o" # environment variable
 ALGORITHM ="HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES =60 *24
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 def hash_password(password:str) -> str:
     salt= bcrypt.gensalt()
-    return bcrypt.hashpw(password.encode("utf-8"),salt).decode("utf.8")
+    return bcrypt.hashpw(password.encode("utf-8"),salt).decode("utf-8")
 
 def verify_password(plain_password:str, hashed_password:str)-> bool:
     return bcrypt.checkpw(plain_password.encode("utf-8"),hashed_password.encode("utf-8"))
@@ -35,7 +35,7 @@ def get_current_user(
         if user_id_str is None:
             raise credentials_exception
         token_data =schemas.TokenData(user_id=int(user_id_str))
-    except(jwt.PyJWKError, ValueError):
+    except(jwt.PyJWTError, ValueError):
         raise credentials_exception 
     
     user = (db.query(models.User).filter(models.User.id==token_data.user_id).first())

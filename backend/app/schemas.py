@@ -55,7 +55,7 @@ class EggResponse(BaseModel):
     
     id:int
     title:str
-    user_int:int
+    user_id:int
     open_date:datetime
     is_sealed: bool
     
@@ -73,4 +73,3 @@ class MemoryResponse(BaseModel): # inherit from postbase and add id:int
     id:int 
     egg_id:int
     content:str
-    
