@@ -124,7 +124,7 @@ export default function CreateEggPopup({
           </button>
           <button
             type="button"
-            onClick={() => setmodalvisible(false)}
+            onClick={() => {setmodalvisible(false); settitle(""); setdescription(""); setmedia([]); setunlockdate("")}}
             className="w-full border border-(--dark-brown) text-(--light-brown) hover:bg-(--light-brown) hover:text-(--bg-color) py-3 rounded-lg transition-all cursor-pointer active:scale-95"
           >
             Cancel
