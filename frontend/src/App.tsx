@@ -5,6 +5,7 @@ import { Account } from "./pages/Account";
 import { Farm } from "./pages/Farm";
 import Footer from "./components/Footer";
 import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
         <Route path="/farm" element={<Farm />} />
         <Route path="/account" element={<Account />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
         <Footer />
     </>
