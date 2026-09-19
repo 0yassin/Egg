@@ -18,6 +18,7 @@ export function Farm() {
   const [modalUnlockDate, setModalUnlockDate] = useState("");
   const [modalMedia, setModalMedia] = useState<any[]>([]);
   
+  function onmodalsubmit() {}
 
   return (
     <>
@@ -39,6 +40,7 @@ export function Farm() {
 
       {modalVisible && (
         <CreateEggPopup
+          onSubmit={onmodalsubmit}
           modalvisible={modalVisible}
           title={modalTitle}
           description={modalDescription}
@@ -48,8 +50,7 @@ export function Farm() {
           settitle={setModalTitle}
           setdescription={setModalDescription}
           setunlockdate={setModalUnlockDate}
-          setmedia={setModalMedia}
-          
+          setmedia={setModalMedia}          
         />
       )}
     </>
