@@ -36,6 +36,7 @@ class Memory(Base):
     __tablename__ ="memories"
     id: Mapped[int]=mapped_column(Integer, primary_key=True, index=True)
     egg_id:Mapped[int]=mapped_column(ForeignKey("eggs.id"),nullable=False)
+    title:Mapped[str] = mapped_column(String(200), nullable=False, default="")
     content:Mapped[str]= mapped_column(Text, nullable=False)
     
     #relationship
