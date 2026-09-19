@@ -1,14 +1,14 @@
-from fastapi import FastAPI , HTTPException , status , Depends
-from datetime import datetime, timezone
-from sqlalchemy.orm import Session
-from app.database import Base, engine, get_db
-import app.models as models
-import app.schemas as schemas
-from fastapi.middleware.cors import CORSMiddleware
-from app.auth import hash_password
+from fastapi import FastAPI , HTTPException , status , Depends # core fastapi utilities
+from datetime import datetime, timezone #for egg open date and countdown
+from sqlalchemy.orm import Session #imports dabatabse session
+from app.database import Base , engine, get_db # Base holds table metadata ,engine manages connection
+import app.models as models #for tables
+import app.schemas as schemas 
+from fastapi.middleware.cors import CORSMiddleware #create table in egg.db
+from app.auth import (hash_password, get_current_user, verify_password, create_access_token)
 
 
-Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine) 
 app = FastAPI(title="Memory EGG API")
 
 origins =["http://localhost:5173", # vite react default port
@@ -84,7 +84,8 @@ def get_egg_memories(egg_id:int, db:Session=Depends(get_db)):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, detail=f"this egg is sealed until {egg.open_date.isoformat()}! countdown is active :)")
         return egg.memories
-        
+
+
 
     
     
