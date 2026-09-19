@@ -16,6 +16,9 @@ export function Login(){
             setError("Please fill in all fields.");
             return;
         }
+        if(password.trim().length < 6 ){
+            setError("Password must be at least 6 characters long.")
+        }
         setIsLoading(true)
         try {
             await new Promise((resolve) => setTimeout(resolve, 1500));
