@@ -1,1 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
+
+@theme {
+  --bg-color: #f4efe7;
+  --btn-bg-color: #c3a995;
+  --logo-color: #593d3b;
+  --highlight-text-color: #574a42;
+  --text-color: #6f5e53;
+  --main-heading-textBg: #583c3b;
+  --secondary-bg-color: #8a7968;
+  --accent-color: #593d3b;
+  --border-color: #c3a995;
+  --accent-blue: #6883ba;
+  --dark-brown: #2b1e1a;
+  --light-brown: #5c4a42;
+  --font-poppins: "Poppins", sans-serif;
+}
+
+@layer base {
+  html {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+  }
+}
+.egg-float {
+  animation: eggFloat 1s ease-in-out infinite;
+}
+@keyframes eggFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
