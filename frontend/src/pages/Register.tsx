@@ -13,7 +13,7 @@ export function Register(){
         <main className="font-poppins min-h-screen min-w-screen justify-center flex p-4 pt-8">
             <div className="w-full h-fit max-w-md border-(--light-brown)/80 border p-8 rounded-lg gap-3 flex flex-col">
                 <h2 className="text-[25px] font-semibold text-(--dark-brown)">
-                    Login to your account
+                    Create your account
                 </h2>
                     <input
                         type="email"
