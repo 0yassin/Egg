@@ -1,9 +1,25 @@
+import { NavBar } from "./components/NavBar";
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./pages/home";
+import { Account } from "./pages/Account";
+import { Farm } from "./pages/Farm";
+import Footer from "./components/Footer";
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
 function App() {
   return (
     <>
-      <main className="min-h-screen bg-black flex items-center justify-center">
-        <h1 className="text-5xl font-bold text-white">Egggggggggg</h1>
-      </main>
+      <div className="sticky w-full top-0 z-10">
+        <NavBar />
+      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/farm" element={<Farm />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+        <Footer />
     </>
   );
 }
