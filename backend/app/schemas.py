@@ -1,7 +1,6 @@
 from pydantic import BaseModel, ConfigDict, Field , EmailStr
 from datetime import datetime
 
-
 # USER SCHEMAS
 class UserCreate(BaseModel):
     name: str 
@@ -27,7 +26,7 @@ class UserPublic(BaseModel):
 class UserUpdate(BaseModel):
     name: str |None =Field(default=None, min_length=1,  max_length=20)
     username: str |None =Field(default=None, max_length=50)
-    email:str |None=Field(default=None , max_length=120)
+    email:EmailStr |None =Field(default=None)
 
 #authentication schemas 
 
@@ -63,13 +62,14 @@ class EggResponse(BaseModel):
 
 # memory schemas
 class MemoryCreate(BaseModel):  # defines what data is allowed to look like
-    content: str =Field(min_length=1)
+    title: str
+    content: str 
     
-# class Update(BaseModel):
-#     content: str | None =Field(default=None, min_length=1)
-
+    
+    
 class MemoryResponse(BaseModel): # inherit from postbase and add id:int
     model_config =ConfigDict(from_attributes= True) # used this so that later pydantic can also read . attributes from database
     id:int 
     egg_id:int
+    title: str
     content:str

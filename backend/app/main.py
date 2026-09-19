@@ -1,17 +1,19 @@
 from fastapi import FastAPI , HTTPException , status , Depends # core fastapi utilities
 from datetime import datetime, timezone #for egg open date and countdown
 from sqlalchemy.orm import Session #imports dabatabse session
-from app.database import Base , engine, get_db # Base holds table metadata ,engine manages connection
+from app.database import Base , engine, get_db, migrate_database # Base holds table metadata ,engine manages connection
 import app.models as models #for tables
 import app.schemas as schemas 
 from fastapi.middleware.cors import CORSMiddleware #create table in egg.db
 from app.auth import (hash_password, get_current_user, verify_password, create_access_token)
 from fastapi.security import OAuth2PasswordRequestForm
+
 Base.metadata.create_all(bind=engine) 
+migrate_database()
 app = FastAPI(title="Memory EGG API")
 
 origins =["http://localhost:5173", # vite react default port
-          "http:/127.0.0.1:5173"]
+          "http://127.0.0.1:5173"]
 
 app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
@@ -38,8 +40,12 @@ def create_user(user: schemas.UserCreate, db:Session=Depends(get_db)):
 
 #egg endpoints
 @app.post("/api/eggs", response_model=schemas.EggResponse, status_code=status.HTTP_201_CREATED) #post capsule
-def create_egg(egg: schemas.EggCreate, db: Session=Depends(get_db)): #recieve egg data
-    new_egg = models.Egg(title=egg.title, user_id=egg.user_id, open_date=egg.open_date, is_sealed=True)
+def create_egg(
+    egg: schemas.EggCreate,
+    current_user: models.User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+): #recieve egg data
+    new_egg = models.Egg(title=egg.title, user_id=current_user.id, open_date=egg.open_date, is_sealed=True)
     db.add(new_egg)
     db.commit()
     db.refresh(new_egg)
@@ -61,7 +67,7 @@ def add_memory(
     egg=db.query(models.Egg).filter(models.Egg.id==egg_id).first() #models.Egg.id==egg_id checks if egg exists
     if not egg:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="egg not found")
-    new_memory =models.Memory(egg_id=egg.id, content=memory.content)
+    new_memory =models.Memory(egg_id=egg.id, title=memory.title, content=memory.content)
     db.add(new_memory)
     db.commit()
     db.refresh(new_memory)
@@ -107,7 +113,7 @@ def login(
 
     access_token = create_access_token(data={"sub": str(user.id)})
     return {"access_token": access_token, "token_type": "bearer"}
-@app.get("/api/user/me", response_model=schemas.UserResponse)
+@app.get("/api/users/me", response_model=schemas.UserResponse)
 def get_current_user_profile(current_user: models.User=Depends(get_current_user)):
     return current_user
 
@@ -134,6 +140,7 @@ def update_profile(
         )
         if existing_email:
             raise HTTPException(status_code=400, detail="Email already being used by someone else")
+        current_user.email = user_data.email
     db.commit()
     db.refresh(current_user)
     return current_user
