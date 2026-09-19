@@ -18,7 +18,36 @@ export function Farm() {
   const [modalUnlockDate, setModalUnlockDate] = useState("");
   const [modalMedia, setModalMedia] = useState<any[]>([]);
   
-  function onmodalsubmit() {}
+  async function onmodalsubmit() {
+    try {
+      const formData = new FormData();
+      formData.append("title", modalTitle)
+      formData.append("description", modalDescription)
+      formData.append("unlockdate", modalUnlockDate)
+      modalMedia.forEach((file)=>{
+        formData.append("media", file)
+      })
+    
+      // placeholder endpoint!
+      const response = await fetch("/api/createegg", {
+        method: "POST",
+        body: formData,
+      })
+      if (!response.ok) {
+        throw new Error("Failed to create egg");
+      }
+      const result = await response.json();
+      console.log("Egg created successfully:", result);
+      
+      setModalTitle("");
+      setModalDescription("");
+      setModalUnlockDate("");
+      setModalMedia([]);
+      setModalVisible(false);
+    } catch (e) {
+      console.error("error creating egg", e)
+    }
+  }
 
   return (
     <>
