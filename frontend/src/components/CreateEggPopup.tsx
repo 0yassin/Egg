@@ -1,11 +1,15 @@
 import React from "react";
 import {useDropzone} from "react-dropzone"
+import spannericon from "../assets/spinnericon.svg"
+
 export interface CreateEggPopupProps {
   title: string;
   description: string;
   unlockDate: string;
   media: any[];
   modalvisible: boolean;
+  error: string;
+  isLoading: boolean;
 
   setmodalvisible: (visible: boolean) => void;
   settitle: (title: string) => void;
@@ -13,6 +17,7 @@ export interface CreateEggPopupProps {
   setmedia?: (media: any[]) => void;
   setunlockdate?: (date: string) => void;
   onSubmit?: () => void;
+  seterror: (error: string) => void;
 }
 
 export default function CreateEggPopup({
@@ -20,6 +25,8 @@ export default function CreateEggPopup({
   description,
   unlockDate,
   media,
+  error,
+  isLoading,
   settitle,
   setdescription,
   setmodalvisible,
@@ -49,6 +56,12 @@ export default function CreateEggPopup({
         <h2 className="text-[25px] font-semibold text-(--dark-brown)">
           Create New Egg
         </h2>
+
+        {error && (
+          <div className="w-full p-3 bg-red-100 text-red-600 border border-red-300 rounded-lg text-[15px]">
+            {error}
+          </div>
+        )}
 
         <input
           type="text"
@@ -98,15 +111,20 @@ export default function CreateEggPopup({
 
         <div className="flex justify-center items-center gap-3 w-full text-(--bg-color)">
           <button
-            type="button"
-            onClick={onSubmit}
-            className="w-full bg-(--accent-blue) py-3 rounded-lg transition-all cursor-pointer active:scale-95"
+              disabled={isLoading}
+              type="button"
+              onClick={onSubmit}
+              className="w-full disabled:opacity-70 disabled:cursor-not-allowed disabled:active:scale-100 bg-(--accent-blue) py-3 rounded-lg transition-all cursor-pointer active:scale-95"
           >
-            Create
+            {isLoading? 
+              <img src={spannericon} className="animate-spin h-7 mx-auto" />
+                :
+                <span>Create</span>
+            }
           </button>
           <button
             type="button"
-            onClick={() => setmodalvisible(false)}
+            onClick={() => {setmodalvisible(false); settitle(""); setdescription(""); setmedia([]); setunlockdate("")}}
             className="w-full border border-(--dark-brown) text-(--light-brown) hover:bg-(--light-brown) hover:text-(--bg-color) py-3 rounded-lg transition-all cursor-pointer active:scale-95"
           >
             Cancel

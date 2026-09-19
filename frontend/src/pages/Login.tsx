@@ -1,6 +1,8 @@
 import { useState } from "react"
 import eyeicon from "../assets/eyeicon.svg"
 import eyeslashicon from "../assets/eyeslashicon.svg"
+import spannericon from "../assets/spinnericon.svg"
+
 
 export function Login(){
 
@@ -15,6 +17,10 @@ export function Login(){
         if (!username.trim() || !password.trim()) {
             setError("Please fill in all fields.");
             return;
+        }
+        if(password.trim().length < 6 ){
+            setError("Password must be at least 6 characters long.")
+            return
         }
         setIsLoading(true)
         try {
@@ -70,7 +76,7 @@ export function Login(){
                         className="w-full h-full disabled:opacity-70 disabled:cursor-not-allowed disabled:active:scale-100 text-[20px] font-medium bg-(--accent-blue) py-3 rounded-lg transition-all cursor-pointer active:scale-95"
                     >
                         {isLoading? 
-                            <img src={eyeicon} className="animate-spin h-7 mx-auto" />
+                            <img src={spannericon} className="animate-spin h-7 mx-auto" />
                             :
                             <span>Login</span>
                         }
