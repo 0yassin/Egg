@@ -1,4 +1,4 @@
-import { easeInOut, motion } from "motion/react";
+import { motion } from "motion/react";
 
 export function EggPlaceHolder() {
   return (

@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { motion, scale } from "motion/react";
+import { motion } from "motion/react";
 interface buttonProps {
   children: ReactNode;
   variant?: "primary" | "secondary" | "dark";
