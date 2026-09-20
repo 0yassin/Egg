@@ -3,7 +3,8 @@ import Button from "../components/botton";
 import { StepCard } from "../components/StepCard";
 import { UseCard } from "../components/StepCard";
 import { motion } from "motion/react";
-
+import { CardVariant } from "../components/StepCard";
+import { ContainerVariant } from "../components/StepCard";
 export function Home() {
   return (
     <main className="min-h-screen px-6 pt-16 pb-28 md:px-12">
@@ -35,8 +36,8 @@ export function Home() {
             Egg is a digital memory holder where you can save your favorite moments, stories, images, and videos for your future self or someone you love.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.6 }} className="mt-8 flex items-center gap-4">
-            <Button variant="secondary">Learn more</Button>
-
+            <a href="#section-3">
+            <Button variant="secondary">Learn more</Button></a>
             <span className="text-sm text-[#5d4a43]/60">Plant a memory today.</span>
           </motion.div>
         </div>
@@ -64,14 +65,14 @@ export function Home() {
             </h2>
             <p className="mt-5 leading-tight">Some memory are meant to be for future experienced . Egg gives them a place to wait </p>
           </div>
-          <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} className="mt-16 grid gap-10 md:grid-cols-3">
+          <motion.div variants={ContainerVariant} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} className="mt-16 grid gap-10 md:grid-cols-3">
             <StepCard step="1" title="Plant a memory" description="Write a message, add your favorite photos, or save a moment you want to remember later" />
             <StepCard step="2" title="Seal your egg" description="Choose when you want your memory to return. Once planted, your Egg stays sealed." />
             <StepCard step="3" title="Rediscover it" description="When the time comes, your Egg opens and your memory returns to you." />
           </motion.div>
         </div>
       </section>
-      <section className="px-6 py-24 md:px-12">
+      <section className="px-6 py-24 md:px-12" id="section-3">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-(--accent-blue)">Made for moments</p>
@@ -95,14 +96,14 @@ export function Home() {
               From a message to your future self to a collection of memories shared with someone you loved ,every egg can hold a story worth coming back
             </motion.p>
           </div>
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div variants={ContainerVariant} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <UseCard step="1" title="A letter to your future self" description="Write down what you're feeling today and let your future descover it months or years from now" />
             <UseCard step="2" title="Something for someonee you love" description="Create a memory filled with messages , photos, and moments for someone special " />
             <UseCard step="3" title="Remember a milestone" description="Capture the moment u want to remember as u complete your milestone" />
             <UseCard step="4" title="A collection of moments" description="having a collection of photo u want to see in future" />
             <UseCard step="5" title="A future celebration" description="Plant an egg today and let the egg celebrate your birthday aniversary and another meaning full day " />
             <UseCard step="6" title="Anything" description="Add anything you want to preserver for your future self" />
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>
