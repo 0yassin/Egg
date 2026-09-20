@@ -1,6 +1,7 @@
 import { EggPlaceHolder } from "../components/EggPlaceHolder";
 import Button from "../components/botton";
 import { StepCard } from "../components/StepCard";
+import { UseCard } from "../components/StepCard";
 export function Home() {
   return (
     <main className="min-h-screen px-6 pt-16 pb-28 md:px-12">
@@ -38,9 +39,31 @@ export function Home() {
             <p className="mt-5 leading-tight">Some memory are meant to be for future experienced . Egg gives them a place to wait </p>
           </div>
           <div className="mt-16 grid gap-10 md:grid-cols-3">
-           <StepCard step="1" title="Plant a memory" description="Write a message, add your favorite photos, or save a moment you want to remember later"/>
-           <StepCard step="2" title="Seal your egg" description="Choose when you want your memory to return. Once planted, your Egg stays sealed."/>
-           <StepCard step="3" title="Rediscover it" description="When the time comes, your Egg opens and your memory returns to you."/>
+            <StepCard step="1" title="Plant a memory" description="Write a message, add your favorite photos, or save a moment you want to remember later" />
+            <StepCard step="2" title="Seal your egg" description="Choose when you want your memory to return. Once planted, your Egg stays sealed." />
+            <StepCard step="3" title="Rediscover it" description="When the time comes, your Egg opens and your memory returns to you." />
+          </div>
+        </div>
+      </section>
+      <section className="px-6 py-24 md:px-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-(--accent-blue)">Made for moments</p>
+            <h2 className="mt-3 font-serif text-3xl font-bold leading-tight text-(--accent-color) md:text-5xl">
+              What will you
+              <span className="text-(--accent-blue)"> plant ?</span>
+            </h2>
+            <p className="mt-5 max-w-3xl leading-7 text-(--accent-color)/75">
+              From a message to your future self to a collection of memories shared with someone you loved ,every egg can hold a story worth coming back
+            </p>
+          </div>
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <UseCard step="1" title="A letter to your future self" description="Write down what you're feeling today and let your future descover it months or years from now" />
+            <UseCard step="2" title="Something for someonee you love" description="Create a memory filled with messages , photos, and moments for someone special " />
+            <UseCard step="3" title="Remember a milestone" description="Capture the moment u want to remember as u complete your milestone" />
+            <UseCard step="4" title="A collection of moments" description="having a collection of photo u want to see in future" />
+            <UseCard step="5" title="A future celebration" description="Plant an egg today and let the egg celebrate your birthday aniversary and another meaning full day " />
+            <UseCard step="6" title="Anything" description="Add anything you want to preserver for your future self" />
           </div>
         </div>
       </section>
