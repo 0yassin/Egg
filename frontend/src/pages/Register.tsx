@@ -3,6 +3,7 @@ import eyeicon from "../assets/eyeicon.svg";
 import eyeslashicon from "../assets/eyeslashicon.svg";
 import spannericon from "../assets/spinnericon.svg";
 import { apiFetch } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export function Register() {
   const [username, setusername] = useState("");
@@ -16,6 +17,7 @@ export function Register() {
   const isValidUsername = (str: string) => /^[a-zA-Z0-9_-]{3,20}$/.test(str);
   const sanitizeInput = (str: string) => str.normalize("NFKC").trim();
   const isValidDisplayName = (str: string) => /^[\p{L}\p{N}\s'-]{2,30}$/u.test(str);
+  const navigate = useNavigate();
 
   async function handleRegister() {
     setError("");
@@ -58,7 +60,7 @@ export function Register() {
           password,
         }),
       });
-      window.location.href = "/login";
+      navigate("/login")
     } catch (e) {
       setError("Please make sure your details are valid");
     } finally {
