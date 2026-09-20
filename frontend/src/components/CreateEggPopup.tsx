@@ -1,57 +1,60 @@
-import React from "react";
-import {useDropzone} from "react-dropzone"
+// import {useDropzone} from "react-dropzone"
 import spannericon from "../assets/spinnericon.svg"
 
 export interface CreateEggPopupProps {
   title: string;
   description: string;
   unlockDate: string;
-  media: any[];
   modalvisible: boolean;
   error: string;
   isLoading: boolean;
+  memory: string;
+  // media: any[];
 
   setmodalvisible: (visible: boolean) => void;
   settitle: (title: string) => void;
   setdescription: (desc: string) => void;
-  setmedia?: (media: any[]) => void;
   setunlockdate?: (date: string) => void;
   onSubmit?: () => void;
   seterror: (error: string) => void;
-  onremovemedia: (i: number) => void;
+  setmemory: (memory: string) => void;
+  // onremovemedia: (i: number) => void;
+  // setmedia?: (media: any[]) => void;
 }
 
 export default function CreateEggPopup({
   title,
   description,
   unlockDate,
-  media,
+  // media,
+  memory,
   error,
   isLoading,
+  setmemory,
   settitle,
   setdescription,
   setmodalvisible,
   onSubmit,
   setunlockdate,
-  setmedia,
-  onremovemedia,
+  // setmedia,
+  // onremovemedia,
 }: CreateEggPopupProps) {
 
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
-    accept: {
-      "image/*": [".jpeg", ".png", ".jpg", ".gif"],
-      "video/*": [".mp4", ".mov", ".webm"],
-    },
-    onDrop: (acceptedFiles) => {
-      if (setmedia) {
-        setmedia([...media, ...acceptedFiles]);
-      }
-    },
-    multiple: undefined,
-    onDragEnter: undefined,
-    onDragOver: undefined,
-    onDragLeave: undefined
-  })
+  // const {getRootProps, getInputProps, isDragActive} = useDropzone({
+  //   accept: {
+  //     "image/*": [".jpeg", ".png", ".jpg", ".gif"],
+  //     "video/*": [".mp4", ".mov", ".webm"],
+  //   },
+  //   onDrop: (acceptedFiles) => {
+  //     if (setmedia) {
+  //       setmedia([...media, ...acceptedFiles]);
+  //     }
+  //   },
+  //   multiple: undefined,
+  //   onDragEnter: undefined,
+  //   onDragOver: undefined,
+  //   onDragLeave: undefined
+  // })
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 font-poppins">
       <div className="w-full max-w-md p-8 rounded-xl bg-(--bg-color) border border-(--dark-brown) shadow-xl flex flex-col gap-4">
@@ -87,8 +90,15 @@ export default function CreateEggPopup({
           onChange={(e) => setunlockdate(e.target.value)}
           className="w-full text-[17.5px] px-4 py-3 text-(--light-brown) bg-(--bg-color) rounded-lg border border-(--light-brown)/80 focus:border-(--dark-brown) transition-all outline-none"
         />
+        <input
+          type="text"
+          placeholder="Memory"
+          value={memory}
+          onChange={(e) => setmemory(e.target.value)}
+          className="w-full text-[17.5px] px-4 py-3 text-(--light-brown) bg-(--bg-color) rounded-lg border border-(--light-brown)/80 focus:border-(--dark-brown) transition-all outline-none"
+        />
         
-        <div
+        {/* <div
           {...getRootProps()}
           className={`cursor-pointer flex flex-col items-center justify-center py-6 px-4 w-full text-[16px] text-(--light-brown)/80 bg-(--bg-color) rounded-lg border border-dashed transition-all ${
             isDragActive ? "border-(--dark-brown) bg-(--light-brown)/10" : "border-(--light-brown)/80"
@@ -132,7 +142,7 @@ export default function CreateEggPopup({
               })}
             </div>
           )}
-        </div>
+        </div> */}
 
         <div className="flex justify-center items-center gap-3 w-full text-(--bg-color)">
           <button
@@ -149,7 +159,7 @@ export default function CreateEggPopup({
           </button>
           <button
             type="button"
-            onClick={() => {setmodalvisible(false); settitle(""); setdescription(""); setmedia([]); setunlockdate("")}}
+            onClick={() => {setmodalvisible(false); settitle(""); setdescription(""); setmemory(""); setunlockdate("")}}
             className="w-full border border-(--dark-brown) text-(--light-brown) hover:bg-(--light-brown) hover:text-(--bg-color) py-3 rounded-lg transition-all cursor-pointer active:scale-95"
           >
             Cancel

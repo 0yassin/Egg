@@ -16,13 +16,14 @@ export function Farm() {
   const [modalTitle, setModalTitle] = useState("");
   const [modalDescription, setModalDescription] = useState("");
   const [modalUnlockDate, setModalUnlockDate] = useState("");
-  const [modalMedia, setModalMedia] = useState<any[]>([]);
+  // const [modalMedia, setModalMedia] = useState<any[]>([]);
   const [error, seterror] = useState("")
   const [modalisLoading, setmodalIsLoading] = useState(false)
+  const [modalMemory, setModalMemory] = useState("")
 
-  function removemediafile(indextoremove: number){
-      setModalMedia((prev) => (prev.filter((_,index) => index !== indextoremove)))
-  }
+  // function removemediafile(indextoremove: number){
+  //     setModalMedia((prev) => (prev.filter((_,index) => index !== indextoremove)))
+  // }
     
   async function onmodalsubmit() {
     if (!modalTitle.trim() || !modalDescription.trim() || !modalUnlockDate.trim())
@@ -30,8 +31,13 @@ export function Farm() {
       seterror("Please fill all the detail fields")
       return
     }
-    if (modalMedia.length < 1){
-      seterror("Please add at least 1 element to the media section")
+    // if (modalMedia.length < 1){
+    //   seterror("Please add at least 1 element to the media section")
+    //   return
+    // }
+
+    if (modalMemory.length < 3) {
+      seterror("Memory must have at least 3 characters")
       return
     }
 
@@ -40,34 +46,14 @@ export function Farm() {
       return
     }
     try {
-      seterror("")
-      setmodalIsLoading(true)
-      const formData = new FormData();
-      formData.append("title", modalTitle)
-      formData.append("description", modalDescription)
-      formData.append("unlockdate", modalUnlockDate)
-      modalMedia.forEach((file)=>{
-      formData.append("media", file)
-    })
-    
-      // placeholder endpoint!
-      const response = await fetch("/api/createegg", {
-        method: "POST",
-        body: formData,
-      })
-
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-
-      if (!response.ok) {
-        throw new Error("Failed to create egg");
-      }
-      const result = await response.json();
-      console.log("Egg created successfully:", result);
+      // API call
+      console.log("Egg created successfully:");
       setModalTitle("");
       setModalDescription("");
       setModalUnlockDate("");
-      setModalMedia([]);
+      // setModalMedia([]);
       setModalVisible(false);
+      setModalMemory("")
     } catch (e) {
       console.error("error creating egg", e)
       seterror(e.message || "Something went wrong while creating the egg.");
@@ -101,16 +87,18 @@ export function Farm() {
           title={modalTitle}
           description={modalDescription}
           unlockDate={modalUnlockDate}
-          media={modalMedia}
+          // media={modalMedia}
           setmodalvisible={setModalVisible}
           settitle={setModalTitle}
           setdescription={setModalDescription}
           setunlockdate={setModalUnlockDate}
-          setmedia={setModalMedia}      
+          // setmedia={setModalMedia}      
           error={error}    
           seterror={seterror}
           isLoading={modalisLoading}
-          onremovemedia={removemediafile}
+          // onremovemedia={removemediafile}
+          setmemory={setModalMemory}
+          memory={modalMemory}
         />
       )}
     </>

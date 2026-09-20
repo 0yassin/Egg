@@ -8,7 +8,7 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { EggDetails } from "./pages/EggDetails";
 import { AnimatePresence } from "motion/react";
-import { PageTransition } from "./components/Pagetransition";
+import { PageTransition } from "./components/PageTransition";
 function App() {
   const location = useLocation()
   return (
