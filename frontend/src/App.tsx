@@ -6,6 +6,7 @@ import { Farm } from "./pages/Farm";
 import Footer from "./components/Footer";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
+import { EggDetails } from "./pages/EggDetails";
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/egg/:id" element={<EggDetails />} />
       </Routes>
         <Footer />
     </>
