@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import lockicon from "../assets/lock-icon.png";
 
+// NOTE: MATCH THESE TO BACKEND ENDPOINTS
+
 export interface MemoryResponse {
   id: number;
   egg_id: number;
