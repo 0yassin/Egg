@@ -39,8 +39,8 @@ export function Register() {
       setError("Please enter a valid email address.");
       return;
     }
-    if (cleanPassword.length < 6) {
-      setError("Password must be at least 6 characters long.");
+    if (cleanPassword.length < 8) {
+      setError("Password must be at least 8 characters long.");
       return;
     }
     setIsLoading(true);
@@ -58,7 +58,7 @@ export function Register() {
           password,
         }),
       });
-      window.location.href = "/login"
+      window.location.href = "/login";
     } catch (e) {
       setError("Please make sure your details are valid");
     } finally {
