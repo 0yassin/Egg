@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { AnimatePresence } from "motion/react";
-import { PageTransition } from "./components/Pagetransition";
+import { PageTransition } from "./components/PageTransition";
 function App() {
   const location = useLocation()
   return (

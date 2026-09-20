@@ -3,7 +3,6 @@ import Button from "../components/botton";
 import { StepCard } from "../components/StepCard";
 import { UseCard } from "../components/StepCard";
 import { motion } from "motion/react";
-import { CardVariant } from "../components/StepCard";
 import { ContainerVariant } from "../components/StepCard";
 export function Home() {
   return (
