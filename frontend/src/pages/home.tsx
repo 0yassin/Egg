@@ -2,7 +2,7 @@ import { EggPlaceHolder } from "../components/EggPlaceHolder";
 import Button from "../components/botton";
 import { StepCard } from "../components/StepCard";
 import { UseCard } from "../components/StepCard";
-import { motion } from "motion/react";
+import { motion, number } from "motion/react";
 
 export function Home() {
   return (
@@ -64,11 +64,11 @@ export function Home() {
             </h2>
             <p className="mt-5 leading-tight">Some memory are meant to be for future experienced . Egg gives them a place to wait </p>
           </div>
-          <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} className="mt-16 grid gap-10 md:grid-cols-3">
-            <StepCard step="1" title="Plant a memory" description="Write a message, add your favorite photos, or save a moment you want to remember later" />
-            <StepCard step="2" title="Seal your egg" description="Choose when you want your memory to return. Once planted, your Egg stays sealed." />
-            <StepCard step="3" title="Rediscover it" description="When the time comes, your Egg opens and your memory returns to you." />
-          </motion.div>
+          <div className="mt-16 grid gap-10 md:grid-cols-3">
+            <StepCard delay={0} step="1" title="Plant a memory" description="Write a message, add your favorite photos, or save a moment you want to remember later" />
+            <StepCard delay={0.15} step="2" title="Seal your egg" description="Choose when you want your memory to return. Once planted, your Egg stays sealed." />
+            <StepCard delay={0.3} step="3" title="Rediscover it" description="When the time comes, your Egg opens and your memory returns to you." />
+          </div>
         </div>
       </section>
       <section className="px-6 py-24 md:px-12">
@@ -96,12 +96,12 @@ export function Home() {
             </motion.p>
           </div>
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <UseCard step="1" title="A letter to your future self" description="Write down what you're feeling today and let your future descover it months or years from now" />
-            <UseCard step="2" title="Something for someonee you love" description="Create a memory filled with messages , photos, and moments for someone special " />
-            <UseCard step="3" title="Remember a milestone" description="Capture the moment u want to remember as u complete your milestone" />
-            <UseCard step="4" title="A collection of moments" description="having a collection of photo u want to see in future" />
-            <UseCard step="5" title="A future celebration" description="Plant an egg today and let the egg celebrate your birthday aniversary and another meaning full day " />
-            <UseCard step="6" title="Anything" description="Add anything you want to preserver for your future self" />
+            <UseCard delay={0} step="1" title="A letter to your future self" description="Write down what you're feeling today and let your future descover it months or years from now" />
+            <UseCard delay={0.1} step="2" title="Something for someonee you love" description="Create a memory filled with messages , photos, and moments for someone special " />
+            <UseCard delay={0.2} step="3" title="Remember a milestone" description="Capture the moment u want to remember as u complete your milestone" />
+            <UseCard delay={0.3} step="4" title="A collection of moments" description="having a collection of photo u want to see in future" />
+            <UseCard delay={0.4} step="5" title="A future celebration" description="Plant an egg today and let the egg celebrate your birthday aniversary and another meaning full day " />
+            <UseCard delay={0.5} step="6" title="Anything" description="Add anything you want to preserver for your future self" />
           </div>
         </div>
       </section>
