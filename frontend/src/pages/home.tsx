@@ -36,8 +36,8 @@ export function Home() {
             Egg is a digital memory holder where you can save your favorite moments, stories, images, and videos for your future self or someone you love.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.6 }} className="mt-8 flex items-center gap-4">
-            <Button variant="secondary">Learn more</Button>
-
+            <a href="#section-3">
+            <Button variant="secondary">Learn more</Button></a>
             <span className="text-sm text-[#5d4a43]/60">Plant a memory today.</span>
           </motion.div>
         </div>
@@ -72,7 +72,7 @@ export function Home() {
           </motion.div>
         </div>
       </section>
-      <section className="px-6 py-24 md:px-12">
+      <section className="px-6 py-24 md:px-12" id="section-3">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-(--accent-blue)">Made for moments</p>

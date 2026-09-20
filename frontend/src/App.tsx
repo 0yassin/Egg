@@ -1,25 +1,30 @@
 import { NavBar } from "./components/NavBar";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Home } from "./pages/home";
 import { Account } from "./pages/Account";
 import { Farm } from "./pages/Farm";
 import Footer from "./components/Footer";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
+import { AnimatePresence } from "motion/react";
+import { PageTransition } from "./components/Pagetransition";
 function App() {
+  const location = useLocation()
   return (
     <>
       <div className="sticky w-full top-0 z-10">
         <NavBar />
       </div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/farm" element={<Farm />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-        <Footer />
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<PageTransition><Home /></PageTransition>}  />
+          <Route path="/farm" element={<PageTransition><Farm /></PageTransition>}/>
+          <Route path="/account" element={<PageTransition><Account /></PageTransition>} />
+          <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
+          <Route path="/register" element={<PageTransition><Register /></PageTransition>} />
+        </Routes>
+      </AnimatePresence>
+      <Footer/>
     </>
   );
 }
