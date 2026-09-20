@@ -36,6 +36,16 @@ export function Farm() {
 
   const navigate = useNavigate();
 
+
+    useEffect(() => {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        window.location.href = "/login";
+        return;
+      }
+    }, []);
+
+
   async function fetchEggs() {
     try {
       setPageLoading(true);

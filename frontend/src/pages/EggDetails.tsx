@@ -40,6 +40,14 @@ export function EggDetails() {
   const [isUnlocked, setIsUnlocked] = useState(false);
 
   useEffect(() => {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        window.location.href = "/login";
+        return;
+      }
+    }, []);
+
+  useEffect(() => {
     async function fetchEggMetadata() {
       if (!id) {
         setError("Egg not found.");
