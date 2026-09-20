@@ -23,6 +23,7 @@ def verify_password(plain_password:str, hashed_password:str)-> bool:
 def create_access_token(data: dict)-> str:
     to_encode =data.copy()
     expire = datetime.now(timezone.utc) +timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode["exp"]=expire
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 def get_current_user(
