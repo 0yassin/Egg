@@ -6,6 +6,7 @@ import { Farm } from "./pages/Farm";
 import Footer from "./components/Footer";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
+import { EggDetails } from "./pages/EggDetails";
 import { AnimatePresence } from "motion/react";
 import { PageTransition } from "./components/Pagetransition";
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/account" element={<PageTransition><Account /></PageTransition>} />
           <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
           <Route path="/register" element={<PageTransition><Register /></PageTransition>} />
+          <Route path="/egg/:id" element={<EggDetails />} />
         </Routes>
       </AnimatePresence>
       <Footer/>
