@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import CreateEggCard from "../components/CreateEggCard";
 import Eggcard from "../components/Eggcard";
 import type { EggCardProps } from "../components/Eggcard";
@@ -40,6 +40,8 @@ export function Farm() {
   const [error, seterror] = useState("");
   const [modalisLoading, setmodalIsLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   async function fetchEggs() {
     try {
@@ -121,6 +123,7 @@ export function Farm() {
     try {
       seterror("");
       setmodalIsLoading(true);
+      const localDate = new Date(`${modalUnlockDate}T00:00:00`);
       const user: UserResponse = await apiFetch("/api/users/me");
       const newEgg: EggResponse = await apiFetch("/api/eggs", {
         method: "POST",
@@ -130,7 +133,7 @@ export function Farm() {
         body: JSON.stringify({
           title: modalTitle.trim(),
           user_id: user.id,
-          open_date: `${modalUnlockDate}T00:00:00`,
+          open_date: localDate.toISOString(),
         }),
       });
 
@@ -190,7 +193,7 @@ export function Farm() {
                     description={card.description}
                     isLocked={card.isLocked}
                     onClick={() => {
-                      window.location.href = `/egg/${egg.id}`;
+                        navigate(`/egg/${egg.id}`);
                     }}
                   />
                 );
