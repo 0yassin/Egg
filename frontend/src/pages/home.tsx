@@ -58,7 +58,7 @@ export function Home() {
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-md font-semibold uppercase tracking-[0.2em] text-(--accent-blue)">How egg works</p>
             <h2 className="mt-3 font-serif text-3xl font-bold leading-tight md:text-5xl">
-              PLant a memory
+              Plant a memory
               <br />
               let time do the rest
             </h2>
@@ -99,7 +99,7 @@ export function Home() {
             <UseCard step="1" title="A letter to your future self" description="Write down what you're feeling today and let your future descover it months or years from now" />
             <UseCard step="2" title="Something for someonee you love" description="Create a memory filled with messages , photos, and moments for someone special " />
             <UseCard step="3" title="Remember a milestone" description="Capture the moment u want to remember as u complete your milestone" />
-            <UseCard step="4" title="A collection of moments" description="having a collection of photo u want to see in future" />
+            <UseCard step="4" title="A collection of moments" description="Having a collection of photo u want to see in future" />
             <UseCard step="5" title="A future celebration" description="Plant an egg today and let the egg celebrate your birthday aniversary and another meaning full day " />
             <UseCard step="6" title="Anything" description="Add anything you want to preserver for your future self" />
           </motion.div>
