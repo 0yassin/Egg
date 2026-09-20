@@ -19,6 +19,10 @@ export function Farm() {
   const [modalMedia, setModalMedia] = useState<any[]>([]);
   const [error, seterror] = useState("")
   const [modalisLoading, setmodalIsLoading] = useState(false)
+
+  function removemediafile(indextoremove: number){
+      setModalMedia((prev) => (prev.filter((_,index) => index !== indextoremove)))
+  }
     
   async function onmodalsubmit() {
     if (!modalTitle.trim() || !modalDescription.trim() || !modalUnlockDate.trim())
@@ -106,6 +110,7 @@ export function Farm() {
           error={error}    
           seterror={seterror}
           isLoading={modalisLoading}
+          onremovemedia={removemediafile}
         />
       )}
     </>

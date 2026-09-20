@@ -18,6 +18,7 @@ export interface CreateEggPopupProps {
   setunlockdate?: (date: string) => void;
   onSubmit?: () => void;
   seterror: (error: string) => void;
+  onremovemedia: (i: number) => void;
 }
 
 export default function CreateEggPopup({
@@ -33,6 +34,7 @@ export default function CreateEggPopup({
   onSubmit,
   setunlockdate,
   setmedia,
+  onremovemedia,
 }: CreateEggPopupProps) {
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({
@@ -103,8 +105,31 @@ export default function CreateEggPopup({
           )}
 
           {media.length > 0 && (
-            <div className="mt-3 text-xs text-(--dark-brown) font-medium">
-              {media.length} file(s) selected
+            <div className="w-full flex flex-wrap gap-2 mt-2 max-h-30 overflow-y-auto">
+              {media.map((file, index)=> {
+                const previewUrl = URL.createObjectURL(file)
+                const isvideo = file.type.startsWith("video")
+                return (
+                  <div key={index} className="relative w-16 h-16 rounded-lg bg-(--light-brown)/30 group">
+                    {isvideo ? (
+                      <video src={previewUrl} className="w-full h-full object-cover rounded-lg" />
+                    ) : (
+                      <img src={previewUrl} className="w-full h-full object-cover rounded-lg"/>
+                      )
+                    } 
+                    <div className="absolute inset-0 bg-red-500/40 backdrop-blur-[3px] rounded-lg z-50 opacity-0 group-hover:opacity-100 transition-opacity flex justify-center items-center content-center">
+                      <button type="button" className="text-white cursor-pointer"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (onremovemedia) onremovemedia(index);
+                        }}>
+                          <span className="text-[30px]">x</span>
+                      </button>
+                      
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           )}
         </div>
