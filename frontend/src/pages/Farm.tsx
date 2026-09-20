@@ -1,93 +1,210 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import CreateEggCard from "../components/CreateEggCard";
 import Eggcard from "../components/Eggcard";
 import type { EggCardProps } from "../components/Eggcard";
 import CreateEggPopup from "../components/CreateEggPopup";
 import { apiFetch } from "../services/api";
 
-const cardsData: EggCardProps[] = [
-  { title: "birthday", description: "my 15th birthday", unlockDate: "unlocks in 2 days", isLocked: true },
-  { title: "Team building event", description: "pictures from event with new collegues", unlockDate: "unlocks in 2 years", isLocked: true },
-  { title: "Project launch", description: "luanching our first project together", unlockDate: "unlocks in 5 months", isLocked: true },
-  { title: "Graduation day", description: "the day I graduated highschool", unlockDate: "unlocks in 10 days", isLocked: true },
-];
+interface UserResponse {
+  id: number;
+  name: string | null;
+  username: string;
+  email: string;
+}
+
+interface EggResponse {
+  id: number;
+  title: string;
+  user_id: number;
+  open_date: string;
+  is_sealed: boolean;
+}
+
+interface MemoryResponse {
+  id: number;
+  egg_id: number;
+  title: string;
+  content: string;
+}
 
 export function Farm() {
+  const [eggs, setEggs] = useState<EggResponse[]>([]);
+
   const [modalVisible, setModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalDescription, setModalDescription] = useState("");
   const [modalUnlockDate, setModalUnlockDate] = useState("");
-  const [modalMedia, setModalMedia] = useState<any[]>([]);
-  const [error, seterror] = useState("")
-  const [modalisLoading, setmodalIsLoading] = useState(false)
+  const [modalMemory, setModalMemory] = useState("");
 
-  function removemediafile(indextoremove: number){
-      setModalMedia((prev) => (prev.filter((_,index) => index !== indextoremove)))
+  const [error, seterror] = useState("");
+  const [modalisLoading, setmodalIsLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
+
+  async function fetchEggs() {
+    try {
+      setPageLoading(true);
+      seterror("");
+
+      const user: UserResponse = await apiFetch("/api/users/me");
+
+      const userEggs: EggResponse[] = await apiFetch(`/api/eggs/user/${user.id}`);
+
+      setEggs(userEggs);
+    } catch (e) {
+      console.error("Failed to fetch eggs:", e);
+      seterror("Failed to load your eggs.");
+    } finally {
+      setPageLoading(false);
+    }
   }
-    
+
+  useEffect(() => {
+    fetchEggs();
+  }, []);
+
+  function getUnlockText(openDate: string) {
+    const difference = new Date(openDate).getTime() - Date.now();
+
+    if (difference <= 0) {
+      return "unlocked";
+    }
+
+    const days = Math.ceil(difference / (1000 * 60 * 60 * 24));
+
+    if (days === 1) {
+      return "unlocks in 1 day";
+    }
+
+    if (days < 30) {
+      return `unlocks in ${days} days`;
+    }
+
+    const months = Math.ceil(days / 30);
+
+    if (months === 1) {
+      return "unlocks in 1 month";
+    }
+
+    if (months < 12) {
+      return `unlocks in ${months} months`;
+    }
+    const years = Math.ceil(months / 12);
+    if (years === 1) {
+      return "unlocks in 1 year";
+    }
+
+    return `unlocks in ${years} years`;
+  }
+  function getDescription(egg: EggResponse) {
+    if (egg.is_sealed) {
+      return "A memory waiting to be harvested.";
+    }
+
+    return "Your time capsule.";
+  }
   async function onmodalsubmit() {
     if (!modalTitle.trim() || !modalDescription.trim() || !modalUnlockDate.trim()) {
       seterror("Please fill all the detail fields");
       return;
-    }
-    if (modalMedia.length < 1){
-      seterror("Please add at least 1 element to the media section")
-      return
     }
 
     if (modalTitle.trim().length < 3) {
       seterror("Title must have at least 3 characters");
       return;
     }
+
+    if (!modalMemory.trim()) {
+      seterror("Please add a memory");
+      return;
+    }
     try {
-      seterror("")
-      setmodalIsLoading(true)
-      const formData = new FormData();
-      formData.append("title", modalTitle)
-      formData.append("description", modalDescription)
-      formData.append("unlockdate", modalUnlockDate)
-      modalMedia.forEach((file)=>{
-      formData.append("media", file)
-    })
-    
-      // placeholder endpoint!
-      const response = await fetch("/api/createegg", {
+      seterror("");
+      setmodalIsLoading(true);
+      const user: UserResponse = await apiFetch("/api/users/me");
+      const newEgg: EggResponse = await apiFetch("/api/eggs", {
         method: "POST",
-        body: formData,
-      })
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: modalTitle.trim(),
+          user_id: user.id,
+          open_date: `${modalUnlockDate}T00:00:00`,
+        }),
+      });
 
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      await apiFetch(`/api/eggs/${newEgg.id}/memories`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: modalTitle.trim(),
+          content: modalMemory.trim(),
+        }),
+      });
 
-      if (!response.ok) {
-        throw new Error("Failed to create egg");
-      }
-      const result = await response.json();
-      console.log("Egg created successfully:", result);
       setModalTitle("");
       setModalDescription("");
       setModalUnlockDate("");
-      // setModalMedia([]);
+      setModalMemory("");
       setModalVisible(false);
-      setModalMemory("")
+      await fetchEggs();
     } catch (e) {
-      console.error("error creating egg", e);
-      seterror(e.message || "Something went wrong while creating the egg.");
+      console.error("Error creating egg:", e);
+
+      if (e instanceof Error) {
+        seterror(e.message);
+      } else {
+        seterror("Something went wrong while creating the egg.");
+      }
     } finally {
       setmodalIsLoading(false);
     }
   }
-
+  const cardsData: EggCardProps[] = eggs.map((egg) => ({
+    title: egg.title,
+    description: getDescription(egg),
+    unlockDate: getUnlockText(egg.open_date),
+    isLocked: new Date(egg.open_date).getTime() > Date.now(),
+  }));
   return (
     <>
       <main className="max-w-6xl mx-auto px-6 py-10 min-h-screen">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cardsData.map((card, index) => (
-            <Eggcard key={card.title || index} unlockDate={card.unlockDate} title={card.title} description={card.description} isLocked={card.isLocked} onClick={() => {}} />
-          ))}
-          <CreateEggCard onClick={() => setModalVisible(true)} />
-        </div>
+        {pageLoading ? (
+          <div className="flex justify-center items-center min-h-[300px]">
+            <p className="text-[20px] text-(--dark-brown)">Loading your eggs...</p>
+          </div>
+        ) : (
+          <>
+            {error && !modalVisible && <div className="mb-6 w-full p-3 bg-red-100 text-red-600 border border-red-300 rounded-lg text-[15px]">{error}</div>}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {eggs.map((egg, index) => {
+                const card = cardsData[index];
+                return (
+                  <Eggcard
+                    key={egg.id}
+                    unlockDate={card.unlockDate}
+                    title={card.title}
+                    description={card.description}
+                    isLocked={card.isLocked}
+                    onClick={() => {
+                      window.location.href = `/egg/${egg.id}`;
+                    }}
+                  />
+                );
+              })}
+              <CreateEggCard
+                onClick={() => {
+                  seterror("");
+                  setModalVisible(true);
+                }}
+              />
+            </div>
+          </>
+        )}
       </main>
-
       {modalVisible && (
         <CreateEggPopup
           onSubmit={onmodalsubmit}
@@ -95,16 +212,13 @@ export function Farm() {
           title={modalTitle}
           description={modalDescription}
           unlockDate={modalUnlockDate}
-          // media={modalMedia}
           setmodalvisible={setModalVisible}
           settitle={setModalTitle}
           setdescription={setModalDescription}
           setunlockdate={setModalUnlockDate}
-          setmedia={setModalMedia}      
-          error={error}    
+          error={error}
           seterror={seterror}
           isLoading={modalisLoading}
-          // onremovemedia={removemediafile}
           setmemory={setModalMemory}
           memory={modalMemory}
         />

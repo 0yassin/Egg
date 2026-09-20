@@ -26,7 +26,7 @@ export function Login() {
       const formData = new URLSearchParams();
       formData.append("username", username);
       formData.append("password", password);
-      const result = await apiFetch("api/auth/login", {
+      const result = await apiFetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
