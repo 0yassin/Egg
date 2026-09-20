@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import eyeicon from "../assets/eyeicon.svg";
 import eyeslashicon from "../assets/eyeslashicon.svg";
 import spannericon from "../assets/spinnericon.svg";
 import { apiFetch } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
   const [username, setusername] = useState("");
@@ -10,6 +11,16 @@ export function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+
+   useEffect(() => {
+      const token = localStorage.getItem("access_token");
+      if (token) {
+        navigate("/farm")
+        return;
+      }
+    }, []);
 
   async function handleLogin() {
     setError("");

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import eyeicon from "../assets/eyeicon.svg";
 import eyeslashicon from "../assets/eyeslashicon.svg";
 import spannericon from "../assets/spinnericon.svg";
@@ -18,6 +18,14 @@ export function Register() {
   const sanitizeInput = (str: string) => str.normalize("NFKC").trim();
   const isValidDisplayName = (str: string) => /^[\p{L}\p{N}\s'-]{2,30}$/u.test(str);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      navigate("/farm")
+      return;
+    }
+  }, []);
 
   async function handleRegister() {
     setError("");

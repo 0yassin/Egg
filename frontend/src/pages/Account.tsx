@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import editicon from "../assets/editicon.svg";
 import { apiFetch } from "../services/api";
 import spinnericon from "../assets/spinnericon.svg"
+import { useNavigate } from "react-router-dom";
 
 interface UserResponse {
   id: number;
@@ -21,11 +22,11 @@ export function Account() {
   const [editingField, setEditingField] = useState<EditField>(null);
   const [inputValue, setInputValue] = useState("");
   const [modalLoading, setModalLoading] = useState(false)
-
+  const navigate = useNavigate()
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (!token) {
-      window.location.href = "/login";
+      navigate("/login");
       return;
     }
     fetchUser();
