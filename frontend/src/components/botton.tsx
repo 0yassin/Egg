@@ -1,15 +1,14 @@
 import { type ReactNode } from "react";
-
+import { motion, scale } from "motion/react";
 interface buttonProps {
   children: ReactNode;
   variant?: "primary" | "secondary" | "dark";
   onClick?: () => void;
   disabled?: boolean;
 }
-
-function Button({ children, variant = "primary", onClick, disabled = false }:buttonProps){
-    let buttonStyle =""
-    if (variant === "primary") {
+function Button({ children, variant = "primary", onClick, disabled = false }: buttonProps) {
+  let buttonStyle = "";
+  if (variant === "primary") {
     buttonStyle = "bg-[#6882bb] text-black hover:bg-[#5d4a43] hover:text-white cursor-pointer";
   }
 
@@ -21,20 +20,21 @@ function Button({ children, variant = "primary", onClick, disabled = false }:but
     buttonStyle = "bg-black text-white hover:bg-[#6882bb] hover:text-black cursor-pointer";
   }
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.01, y: -1 }}
+      whileTap={{ scale: 0.98, y: 1 }}
       onClick={onClick}
       disabled={disabled}
       className={`
         px-6 py-3
         rounded-lg
         font-medium
-        transition-all duration-200
         ${buttonStyle}
         ${disabled ? "opacity-50 cursor-not-allowed" : ""}
       `}
     >
       {children}
-    </button>
+    </motion.button>
   );
 }
 export default Button;
