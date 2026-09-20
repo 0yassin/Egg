@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import editicon from "../assets/editicon.svg";
 import { apiFetch } from "../services/api";
+import spinnericon from "../assets/spinnericon.svg"
 
 interface UserResponse {
   id: number;
@@ -19,6 +20,7 @@ export function Account() {
   const [modalvisible, setModalVisible] = useState(false);
   const [editingField, setEditingField] = useState<EditField>(null);
   const [inputValue, setInputValue] = useState("");
+  const [modalLoading, setModalLoading] = useState(false)
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -58,6 +60,7 @@ export function Account() {
 
     try {
       setError("");
+      setModalLoading(true)
       const updatedUser = await apiFetch("/api/users/me", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -72,6 +75,8 @@ export function Account() {
       } else {
         setError(`Failed to update ${editingField}`);
       }
+    } finally {
+      setModalLoading(false)
     }
   }
 
@@ -170,11 +175,16 @@ export function Account() {
             
             <div className="flex justify-center items-center gap-3 w-full text-(--bg-color) mt-2">
               <button
+                disabled={modalLoading}
                 type="button"
                 onClick={submitUpdate}
-                className="w-full bg-(--accent-blue) py-3 rounded-lg transition-all cursor-pointer active:scale-95"
+                className="w-full bg-(--accent-blue) py-3 rounded-lg transition-all cursor-pointer active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                Save
+                {!modalLoading? (
+                  "Save"
+                ): (
+                  <img src={spinnericon} className="h-7 mx-auto animate-spin" />
+                )}
               </button>
               
               <button
@@ -185,7 +195,7 @@ export function Account() {
                 }}
                 className="w-full border border-(--dark-brown) text-(--light-brown) hover:bg-(--light-brown) hover:text-(--bg-color) py-3 rounded-lg transition-all cursor-pointer active:scale-95"
               >
-                Cancel
+                  Cancel
               </button>
             </div>
             
