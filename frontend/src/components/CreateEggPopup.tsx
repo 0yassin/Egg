@@ -19,7 +19,6 @@ export default function CreateEggPopup({
   title,
   description,
   unlockDate,
-  modalvisible,
   memory,
   error,
   isLoading,

@@ -21,13 +21,6 @@ interface EggResponse {
   is_sealed: boolean;
 }
 
-interface MemoryResponse {
-  id: number;
-  egg_id: number;
-  title: string;
-  content: string;
-}
-
 export function Farm() {
   const [eggs, setEggs] = useState<EggResponse[]>([]);
 
